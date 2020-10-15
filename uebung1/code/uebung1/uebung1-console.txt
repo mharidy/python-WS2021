@@ -1,0 +1,21 @@
+Mohameds-MacBook-Pro:uebung1 Mohamed$ python Student.py 
+{'Nachname': 'haridy', 'Geburtsdatum': '04/06/1994', 'Vorname': 'mohamed', 'Matrikelnummer': '850367', 'Noten': {'prog1': 1.0, 'Python': 1.0, 'math1': 2.4, 'Prog2': 3.0, 'IOS': 4.0}}
+
+Vorname -> mohamed Nachname -> haridy Matrikelnummer -> 850367 Geburtsdatum -> 04/06/1994 Noten ->  prog1: 1.0Python: 1.0math1: 2.4Prog2: 3.0IOS: 4.0
+
+Noten vor schummeln: 
+('prog1', ': ', 1.0)
+('Python', ': ', 1.0)
+('math1', ': ', 2.4)
+('Prog2', ': ', 3.0)
+('IOS', ': ', 4.0)
+
+('Anzahl der veraenderten Noten: ', 3)
+
+Noten Nach schummeln: 
+('prog1', ': ', 1.0)
+('Python', ': ', 1.0)
+('math1', ': ', 1.0)
+('Prog2', ': ', 1.0)
+('IOS', ': ', 1.0)
+
