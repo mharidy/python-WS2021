@@ -1,0 +1,12 @@
+{% extends "base.html" %}
+
+{% block title1 %} hello from home 1 {% endblock %}
+{% block title2 %} hello from home 2 {% endblock %}
+{% block url %} https://www.google.com.eg/ {% endblock %}
+
+{# can i define only variable in each block tag?, or can i define an object, which contains image_url and image_alt ? #}{# can i define only variable in each block tag?, or can i define an object, which contains image_url and image_alt ? #}
+{% block image_url %}
+    https://upload.wikimedia.org/wikipedia/commons/1/14/Lightsaber%2C_silver_hilt%2C_blue_blade.png {% endblock %}
+{% block image_alt %} blade alt text {% endblock %}
+
+{% block url_name %} open google {% endblock %}
