@@ -1,27 +1,27 @@
 {% extends 'home.html' %}
 {% load static %}
 
-<!--
 {% block css %}
-    <link rel="stylesheet" type="text/css" href="{% static 'Books/books_style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home_style.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'ComputerGame/computerGame_style.css' %}">
 {% endblock %}
--->
 
 {% block title %}Games list{% endblock %}
 
 {% block content %}
-    <h2>Games list</h2>
+    <h1 class="header-home">Games list</h1>
     <ul>
         {% for game in all_games %}
+            <div class="game-wrapper">
+                <a href="{{ game.id }}/"><b>{{ game.name }}</b></a>
+                <a href="{% url 'game-detail' game.id %}"> </a>
+                {{ game.name }} / {{ game.added_on }}
+            </div>
 
-            <a href="{{ game.id }}/"><b>{{ game.name }}</b></a><br>
-            <a href="{% url 'game-detail' game.id %}"> </a>
 
-            {{ game.name }} / {{ game.added_on }} <br>
-            <br>
         {% endfor %}
     </ul>
 
 
-    <a href={% url 'game-create' %}>Add a new game</a><br>
+    <a class="add-new-game-link" href={% url 'game-create' %}>Add a new game</a><br>
 {% endblock %}

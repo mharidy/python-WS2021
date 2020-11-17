@@ -1,12 +1,25 @@
 {% extends "base.html" %}
-{% block title %}Home Titel{% endblock %}
+
+{% load static %}
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'css/home_style.css' %}">
+{% endblock %}
+
+{% block title %}Home{% endblock %}
 {% block content %}
-    Home Block
+
     {% if user.is_authenticated %}
-        <p>Hi {{ user.username }}!</p>
-        <a href="{% url 'logout' %}">logout</a>
+        {% block logged_in_content %}
+            <h1 class="header-home">Home</h1>
+            <p>Hi {{ user.username }}!</p>
+            <p><a href="{% url 'games-list' %}">Show me the games</a></p>
+            <a href="{% url 'logout' %}">logout</a>
+        {% endblock %}
     {% else %}
-        <p>You are not logged in</p>
-        <a href="{% url 'login' %}">login</a>
+        {% block not_logged_in_content %}
+            <h1 class="header-home">Home</h1>
+            <p>You are not logged in</p>
+            <a href="{% url 'login' %}">login</a>
+        {% endblock %}
     {% endif %}
 {% endblock %}
