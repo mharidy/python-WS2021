@@ -1,6 +1,6 @@
 from django.shortcuts import render
 from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, ListView
+from django.views.generic import CreateView, DetailView, ListView, DeleteView
 from .models import ComputerGame
 from .forms import GameForm
 
@@ -26,3 +26,10 @@ class ComputergameCreateView(CreateView):
     def form_valid(self, form):
         form.instance.user = self.request.user
         return super().form_valid(form)
+
+
+class ComputergameDeleteView(DeleteView):
+    model = ComputerGame
+    context_object_name = "game"
+    template_name = "game-confirm-delete.html"
+    success_url = reverse_lazy('games-list')
