@@ -1,0 +1,30 @@
+{% extends 'home.html' %}
+
+{% block title %}Game detail{% endblock %}
+
+{% block content %}
+<h2>Game detail</h2>
+
+    <table>
+    <tr>
+        <td><b>name:</b></td>
+        <td>{{ that_game.name }}<br></td>
+    </tr>
+    <tr>
+        <td><b>description:</b></td>
+        <td>{{ that_game.description }}<br></td>
+    </tr>
+    <tr>
+        <td><b>added on:</b></td>
+        <td>{{ that_game.added_on }}<br></td>
+    </tr>
+
+    <tr>
+        <td><b>added by:</b></td>
+        <td>{{ that_game.user.username }}<br></td>
+    </tr>
+    </table>
+
+    <br>
+    <a href="{% url 'games-list' %}">Back to all books</a>
+{% endblock %}
