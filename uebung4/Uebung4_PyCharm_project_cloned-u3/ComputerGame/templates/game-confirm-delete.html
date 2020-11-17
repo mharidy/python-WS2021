@@ -3,6 +3,7 @@
 {% block title %}delete game{% endblock %}
 
 {% block logged_in_content %}
+    <h1 class="header-home">Delete confirmation</h1>
     <form method="post">{% csrf_token %}
         <p>Are you sure you want to delete "{{ game.name }}"?</p>
         <input type="submit" value="Confirm">
