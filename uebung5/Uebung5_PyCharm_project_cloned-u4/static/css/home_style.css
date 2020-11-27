@@ -1,0 +1,10 @@
+body {
+    font-size: 12px;
+    color: indigo;
+    background: deepskyblue;
+}
+
+.header-home {
+    color: white;
+    text-align: center;
+}
