@@ -3,12 +3,28 @@
 {% block title %}Add game{% endblock %}
 
 {% block logged_in_content %}
-    <h1 class="header-home">Add game</h1>
+    <h2 class="header-home">Add computer</h2>
     <form method="POST">
         {% csrf_token %}
-        <!-- {{ form.as_table }} -->
-        {{ form.as_p }}
-        <button type="submit">Add game</button>
+
+        <label for="id_name">Name:</label>
+        <input id="id_name" type="text" name="name"> <br><br>
+
+        <label for="id_description">Description:</label>
+        <input id="id_description" type="text" name="description"> <br><br>
+
+        <label for="id_genre">Genre:</label>
+        <select id="id_genre" type="text" name="genre">
+            {% for item in form.genre %}
+                <option {{ item }} {% if item == id_genre %} selected {% endif %}>
+            {% endfor %}
+        </select>
+
+        <br><br>
+        <label for="id_added_on">Added_on:</label>
+        <input id="id_added_on" type="date" name="added_on"> <br><br>
+
+        <button type="submit">Add Game</button>
     </form>
 {% endblock %}
 
