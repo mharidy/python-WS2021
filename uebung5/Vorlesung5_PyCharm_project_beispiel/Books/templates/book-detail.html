@@ -1,0 +1,46 @@
+{% extends 'home.html' %}
+{% load static %}
+
+{% block css %}
+    <link rel="stylesheet" type="text/css" href="{% static 'Books/books_style.css' %}">
+{% endblock %}
+
+{% block title %}Book detail{% endblock %}
+
+{% block content %}
+<h2>Book detail</h2>
+
+    <table>
+    <tr>
+        <td><b>Title:</b></td>
+        <td>{{ that_one_book.title }}<br></td>
+    </tr>
+    <tr>
+        <td><b>Subtitle:</b></td>
+        <td>{{ that_one_book.subtitle }}<br></td>
+    </tr>
+    <tr>
+        <td><b>Author:</b></td>
+        <td>{{ that_one_book.author }}<br></td>
+    </tr>
+    <tr>
+        <td><b>Type:</b></td>
+        <td>{{ that_one_book.get_type_display }}<br></td>
+    </tr>
+    <tr>
+        <td><b>Number of pages:</b></td>
+        <td>{{ that_one_book.pages }}<br></td>
+    </tr>
+    <tr>
+        <td><b>Date published:</b></td>
+        <td>{{ that_one_book.date_published }}<br></td>
+    </tr>
+    <tr>
+        <td><b>Entered by:</b></td>
+        <td>{{ that_one_book.user }}<br></td>
+    </tr>
+    </table>
+
+    <br>
+    <a href="{% url 'book-list' %}">Back to all books</a>
+{% endblock %}
