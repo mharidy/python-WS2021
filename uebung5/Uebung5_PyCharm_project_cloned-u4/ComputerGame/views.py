@@ -1,6 +1,4 @@
 from django.shortcuts import redirect, render
-from django.urls import reverse_lazy
-from django.views.generic import CreateView, DetailView, ListView, DeleteView
 from .models import ComputerGame
 from .forms import GameForm
 
@@ -43,8 +41,14 @@ def form_valid(self, form):
     return super().form_valid(form)
 
 
-class ComputergameDeleteView(DeleteView):
-    model = ComputerGame
-    context_object_name = "game"
-    template_name = "game-confirm-delete.html"
-    success_url = reverse_lazy('games-list')
+def delete_game(request, **kwargs):
+    computer_game_id = kwargs['pk']
+    if request.method == 'POST':
+        ComputerGame.objects.filter(id=computer_game_id).delete()
+        all_games = ComputerGame.objects.all()
+        context = {'all_games': all_games}
+        return render(request, 'game-list.html', context)
+    else:
+        selected_game = ComputerGame.objects.get(id=computer_game_id)
+        context = {'game': selected_game}
+        return render(request, 'game-confirm-delete.html', context)
