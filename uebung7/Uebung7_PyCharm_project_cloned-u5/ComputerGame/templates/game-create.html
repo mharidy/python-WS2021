@@ -1,0 +1,34 @@
+{% extends 'home.html' %}
+
+{% block title %}Add game{% endblock %}
+
+{% block logged_in_content %}
+    <h2 class="header-home">Add computer Game</h2>
+    <form method="POST">
+        {% csrf_token %}
+
+        <label for="id_name">Name:</label>
+        <input id="id_name" type="text" name="name"> <br><br>
+
+        <label for="id_description">Description:</label>
+        <input id="id_description" type="text" name="description"> <br><br>
+
+        <label for="id_genre">Genre:</label>
+        <select id="id_genre" type="text" name="genre">
+            {% for item in form.genre %}
+                <option {{ item }} {% if item == id_genre %} selected {% endif %}>
+            {% endfor %}
+        </select>
+
+        <br><br>
+        <label for="id_added_on">Added_on:</label>
+        <input id="id_added_on" type="date" name="added_on"> <br><br>
+
+        <button type="submit">Add Game</button>
+    </form>
+{% endblock %}
+
+{% block not_logged_in_content %}
+    <p>You must log in to add game</p>
+    <a href="{% url 'login' %}">Login</a>
+{% endblock %}
