@@ -1,0 +1,67 @@
+{% extends 'home.html' %}
+{% load static %}
+
+{% block title %}Game detail{% endblock %}
+
+{% block content %}
+    <h1 class="header-home">Game detail</h1>
+
+    <table>
+        <tr>
+            <td><b>name:</b></td>
+            <td>{{ that_game.name }}<br></td>
+        </tr>
+        <tr>
+            <td><b>description:</b></td>
+            <td>{{ that_game.description }}<br></td>
+        </tr>
+        <tr>
+            <td><b>added on:</b></td>
+            <td>{{ that_game.added_on }}<br></td>
+        </tr>
+
+        <tr>
+            <td><b>added by:</b></td>
+            <td>{{ that_game.user.username }}<br></td>
+        </tr>
+    </table>
+
+    {% for comment_with_vote in comments_with_votes %}
+        <div style="border: 1px solid black; margin:15px">
+            <b style="color: darkgreen">{{ comment_with_vote.comment.user.username }}
+                on {{ comment_with_vote.comment.timestamp }}</b><br>
+            {{ comment_with_vote.comment.text }}<br><br>
+            <span style="color: darkgreen">{{ comment_with_vote.up_votes }}</span>
+            <a href="{% url 'game-vote' that_game.id 'up' comment_with_vote.comment.id %}"
+               style="text-decoration: none">
+                <img src="{% static 'ComputerGame/arrow_up.png' %}" height="20" width="20">
+            </a>
+            &nbsp;&nbsp;&nbsp;
+            <span style="color: crimson">{{ comment_with_vote.down_votes }}</span>
+            <a href="{% url 'game-vote' that_game.id 'down' comment_with_vote.comment.id %}"
+               style="text-decoration: none">
+                <img src="{% static 'ComputerGame/arrow_down.png' %}" height="20" width="20">
+            </a>
+            <br><br>
+        </div>
+
+    {% endfor %}
+
+    <br>
+
+
+
+
+    <b style="color: crimson">Do you have a comment for this game?</b><br>
+    <form method="POST">
+        {% csrf_token %}
+        {{ comment_form.as_p }}
+        <button type="submit">Add comment</button>
+
+    </form>
+
+
+    <a href="{% url 'game-confirm-delete' that_game.id %}">Delete this game</a>
+    <br>
+    <a href="{% url 'games-list' %}">Back to all games</a>
+{% endblock %}
