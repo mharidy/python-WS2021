@@ -66,3 +66,10 @@ def delete_game(request, **kwargs):
         selected_game = ComputerGame.objects.get(id=computer_game_id)
         context = {'game': selected_game}
         return render(request, 'game-confirm-delete.html', context)
+
+
+def vote(request, pk: str, up_or_down: str):
+    game = ComputerGame.objects.get(id=int(pk))
+    user = request.user
+    game.vote(user, up_or_down)
+    return redirect('game-detail', pk=pk)
