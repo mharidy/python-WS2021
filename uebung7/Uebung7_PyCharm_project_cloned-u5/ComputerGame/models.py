@@ -43,13 +43,15 @@ class ComputerGame(models.Model):
         return len(self.get_downvotes())
 
     def vote(self, user, up_or_down, comment):
-        print("comment from vote --->")
-        print(comment)
-        vote = Vote.objects.create(up_or_down=up_or_down,
-                                   user=user,
-                                   game=self,
-                                   comment=comment
-                                   )
+        prev_vote = Vote.objects.filter(user=user, comment=comment)
+        if len(prev_vote) == 0:
+            Vote.objects.create(up_or_down=up_or_down,
+                                user=user,
+                                game=self,
+                                comment=comment
+                                )
+        else:
+            prev_vote.update(up_or_down=up_or_down)
 
 
 class Comment(models.Model):
