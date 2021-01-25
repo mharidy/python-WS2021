@@ -42,10 +42,13 @@ class ComputerGame(models.Model):
     def get_downvotes_count(self):
         return len(self.get_downvotes())
 
-    def vote(self, user, up_or_down):
+    def vote(self, user, up_or_down, comment):
+        print("comment from vote --->")
+        print(comment)
         vote = Vote.objects.create(up_or_down=up_or_down,
                                    user=user,
-                                   game=self
+                                   game=self,
+                                   comment=comment
                                    )
 
 
@@ -85,18 +88,4 @@ class Vote(models.Model):
     timestamp = models.DateTimeField(auto_now_add=True)
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     game = models.ForeignKey(ComputerGame, on_delete=models.CASCADE)
-
-    def __str__(self):
-        return self.up_or_down + ' on ' + self.ComputerGame.title + ' by ' + self.user.username
-
-# def get_full_title(self):
-#    return_string = self.title
-# if self.subtitle:  # if subtitle is not empty
-#   return_string = self.title + ': ' + self.subtitle
-# return return_string
-
-# def __str__(self):
-#   return self.title + ' (' + self.author + ')'
-
-# def __repr__(self):
-#   return self.get_full_title() + ' / ' + self.author + ' / ' + self.type
+    comment = models.ForeignKey(Comment, on_delete=models.CASCADE)

@@ -1,5 +1,5 @@
 from django.shortcuts import redirect, render
-from .models import ComputerGame, Comment
+from .models import ComputerGame, Comment, Vote
 from .forms import GameForm, CommentForm
 
 
@@ -23,11 +23,22 @@ def computer_game_details(request, **kwargs):
         else:
             print(form.errors)
     comments = Comment.objects.filter(game=selected_game)
+    comments_votes = Vote.objects.filter(game=selected_game)
+    comments_with_votes = []
+    for com in comments:
+        up_votes = 0
+        down_votes = 0
+        for comment_vote in comments_votes:
+            if comment_vote.up_or_down == "up" and comment_vote.comment_id == com.id:
+                up_votes = up_votes + 1
+            elif comment_vote.up_or_down == "down" and comment_vote.comment_id == com.id:
+                down_votes = down_votes + 1
+        comments_with_votes.append({'comment': com, 'up_votes': up_votes, 'down_votes': down_votes})
+
     context = {'that_game': selected_game,
                'comments_for_that_game': comments,
-               'upvotes': selected_game.get_upvotes_count(),
-               'downvotes': selected_game.get_downvotes_count(),
-               'comment_form': CommentForm}
+               'comment_form': CommentForm,
+               'comments_with_votes': comments_with_votes}
     return render(request, 'game-detail.html', context)
 
 
@@ -68,8 +79,9 @@ def delete_game(request, **kwargs):
         return render(request, 'game-confirm-delete.html', context)
 
 
-def vote(request, pk: str, up_or_down: str):
+def vote(request, pk: str, up_or_down: str, commentPK: int):
     game = ComputerGame.objects.get(id=int(pk))
     user = request.user
-    game.vote(user, up_or_down)
+    comment = Comment.objects.get(id=commentPK)
+    game.vote(user, up_or_down, comment)
     return redirect('game-detail', pk=pk)

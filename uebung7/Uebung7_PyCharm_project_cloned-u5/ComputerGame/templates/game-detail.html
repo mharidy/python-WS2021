@@ -26,17 +26,20 @@
         </tr>
     </table>
 
-    {% for comment in comments_for_that_game %}
+    {% for comment_with_vote in comments_with_votes %}
         <div style="border: 1px solid black; margin:15px">
-            <b style="color: darkgreen">{{ comment.user.username }} on {{ comment.timestamp }}</b><br>
-            {{ comment.text }}<br><br>
-            <span style="color: darkgreen">{{ upvotes }}</span>
-            <a href="{% url 'game-vote' that_game.id 'up' %}" style="text-decoration: none">
+            <b style="color: darkgreen">{{ comment_with_vote.comment.user.username }}
+                on {{ comment_with_vote.comment.timestamp }}</b><br>
+            {{ comment_with_vote.comment.text }}<br><br>
+            <span style="color: darkgreen">{{ comment_with_vote.up_votes }}</span>
+            <a href="{% url 'game-vote' that_game.id 'up' comment_with_vote.comment.id %}"
+               style="text-decoration: none">
                 <img src="{% static 'ComputerGame/arrow_up.png' %}" height="20" width="20">
             </a>
             &nbsp;&nbsp;&nbsp;
-            <span style="color: crimson">{{ downvotes }}</span>
-            <a href="{% url 'game-vote' that_game.id 'down' %}" style="text-decoration: none">
+            <span style="color: crimson">{{ comment_with_vote.down_votes }}</span>
+            <a href="{% url 'game-vote' that_game.id 'down' comment_with_vote.comment.id %}"
+               style="text-decoration: none">
                 <img src="{% static 'ComputerGame/arrow_down.png' %}" height="20" width="20">
             </a>
             <br><br>
